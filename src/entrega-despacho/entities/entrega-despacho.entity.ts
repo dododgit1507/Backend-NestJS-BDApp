@@ -31,6 +31,7 @@ export class EntregaDespacho {
 
   @Column('character varying', { name: 'nombre_receptor', length: 100 })
   nombreReceptor: string;
+  
 
   @ManyToOne(
     () => AsignacionTransporte,

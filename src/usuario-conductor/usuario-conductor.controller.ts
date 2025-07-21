@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { UsuarioConductorService } from './usuario-conductor.service';
 import { CreateUsuarioConductorDto } from './dto/create-usuario-conductor.dto';
 import { UpdateUsuarioConductorDto } from './dto/update-usuario-conductor.dto';
@@ -19,16 +19,11 @@ export class UsuarioConductorController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usuarioConductorService.findOne(+id);
+    return this.usuarioConductorService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUsuarioConductorDto: UpdateUsuarioConductorDto) {
-    return this.usuarioConductorService.update(+id, updateUsuarioConductorDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usuarioConductorService.remove(+id);
+    return this.usuarioConductorService.update(id, updateUsuarioConductorDto);
   }
 }

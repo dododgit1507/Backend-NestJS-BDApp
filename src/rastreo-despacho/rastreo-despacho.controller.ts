@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { RastreoDespachoService } from './rastreo-despacho.service';
 import { CreateRastreoDespachoDto } from './dto/create-rastreo-despacho.dto';
 import { UpdateRastreoDespachoDto } from './dto/update-rastreo-despacho.dto';
@@ -19,16 +19,12 @@ export class RastreoDespachoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.rastreoDespachoService.findOne(+id);
+    return this.rastreoDespachoService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRastreoDespachoDto: UpdateRastreoDespachoDto) {
-    return this.rastreoDespachoService.update(+id, updateRastreoDespachoDto);
+    return this.rastreoDespachoService.update(id, updateRastreoDespachoDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.rastreoDespachoService.remove(+id);
-  }
 }

@@ -5,6 +5,7 @@ import {
   IsDateString,
   IsNumber,
   IsOptional,
+  IsInt,
 } from '@nestjs/class-validator';
 
 export class CreateProyeccionSemanalProductoDto {
@@ -14,13 +15,14 @@ export class CreateProyeccionSemanalProductoDto {
   numeroSemana: string;
 
   @IsDateString()
+  @IsNotEmpty()
   fecha: string;
 
   @IsOptional()
   @IsNumber()
   metrosCuadrados?: number;
 
-  @IsString()
+  @IsInt()
   @IsNotEmpty()
-  idProyeccionProducto: string;
+  idProyeccionProducto: number;
 }

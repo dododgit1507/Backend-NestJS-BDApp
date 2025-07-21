@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { AsignacionCodigoIngenieroService } from './asignacion-codigo-ingeniero.service';
 import { CreateAsignacionCodigoIngenieroDto } from './dto/create-asignacion-codigo-ingeniero.dto';
-import { UpdateAsignacionCodigoIngenieroDto } from './dto/update-asignacion-codigo-ingeniero.dto';
 
 @Controller('asignacion-codigo-ingeniero')
 export class AsignacionCodigoIngenieroController {
@@ -17,18 +16,11 @@ export class AsignacionCodigoIngenieroController {
     return this.asignacionCodigoIngenieroService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.asignacionCodigoIngenieroService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAsignacionCodigoIngenieroDto: UpdateAsignacionCodigoIngenieroDto) {
-    return this.asignacionCodigoIngenieroService.update(+id, updateAsignacionCodigoIngenieroDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.asignacionCodigoIngenieroService.remove(+id);
+  @Delete(':idIngeniero/:idCodigo')
+  remove(
+    @Param('idIngeniero') idIngeniero: string,
+    @Param('idCodigo') idCodigo: string
+  ) {
+    return this.asignacionCodigoIngenieroService.remove(idIngeniero, idCodigo);
   }
 }

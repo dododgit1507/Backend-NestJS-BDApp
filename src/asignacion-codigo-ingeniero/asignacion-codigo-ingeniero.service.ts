@@ -1,26 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAsignacionCodigoIngenieroDto } from './dto/create-asignacion-codigo-ingeniero.dto';
-import { UpdateAsignacionCodigoIngenieroDto } from './dto/update-asignacion-codigo-ingeniero.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { AsignacionCodigoIngeniero } from './entities/asignacion-codigo-ingeniero.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AsignacionCodigoIngenieroService {
-  create(createAsignacionCodigoIngenieroDto: CreateAsignacionCodigoIngenieroDto) {
-    return 'This action adds a new asignacionCodigoIngeniero';
+
+  constructor(@InjectRepository(AsignacionCodigoIngeniero) private asignacionCodigoIngenieroRepository: Repository<AsignacionCodigoIngeniero>) {}
+
+  async create(createAsignacionCodigoIngenieroDto: CreateAsignacionCodigoIngenieroDto): Promise<AsignacionCodigoIngeniero> {
+    const asignacionCodigoIngeniero = this.asignacionCodigoIngenieroRepository.create(createAsignacionCodigoIngenieroDto);
+    return await this.asignacionCodigoIngenieroRepository.save(asignacionCodigoIngeniero);
   }
 
-  findAll() {
-    return `This action returns all asignacionCodigoIngeniero`;
+  async findAll():Promise<AsignacionCodigoIngeniero[]> {
+    return await this.asignacionCodigoIngenieroRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} asignacionCodigoIngeniero`;
-  }
+  async remove(idIngeniero: string, idCodigo: string): Promise<void> {
+    const asignacion = await this.asignacionCodigoIngenieroRepository.findOne({
+      where: { id_ingeniero: idIngeniero, id_codigo: idCodigo },
+    });
 
-  update(id: number, updateAsignacionCodigoIngenieroDto: UpdateAsignacionCodigoIngenieroDto) {
-    return `This action updates a #${id} asignacionCodigoIngeniero`;
-  }
+    if (!asignacion) {
+      throw new NotFoundException('Asignación no encontrada');
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} asignacionCodigoIngeniero`;
+    await this.asignacionCodigoIngenieroRepository.remove(asignacion);
   }
 }

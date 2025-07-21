@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { ProyeccionSemanalProductoService } from './proyeccion-semanal-producto.service';
 import { CreateProyeccionSemanalProductoDto } from './dto/create-proyeccion-semanal-producto.dto';
 import { UpdateProyeccionSemanalProductoDto } from './dto/update-proyeccion-semanal-producto.dto';
 
-@Controller('proyeccion-semanal-producto')
+@Controller('proyeccionSemanaProducto')
 export class ProyeccionSemanalProductoController {
   constructor(private readonly proyeccionSemanalProductoService: ProyeccionSemanalProductoService) {}
 
@@ -25,10 +25,5 @@ export class ProyeccionSemanalProductoController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProyeccionSemanalProductoDto: UpdateProyeccionSemanalProductoDto) {
     return this.proyeccionSemanalProductoService.update(+id, updateProyeccionSemanalProductoDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.proyeccionSemanalProductoService.remove(+id);
   }
 }

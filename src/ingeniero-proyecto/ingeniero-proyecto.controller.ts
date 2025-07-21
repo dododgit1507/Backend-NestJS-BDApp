@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { IngenieroProyectoService } from './ingeniero-proyecto.service';
 import { CreateIngenieroProyectoDto } from './dto/create-ingeniero-proyecto.dto';
 import { UpdateIngenieroProyectoDto } from './dto/update-ingeniero-proyecto.dto';
@@ -27,8 +27,4 @@ export class IngenieroProyectoController {
     return this.ingenieroProyectoService.update(+id, updateIngenieroProyectoDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ingenieroProyectoService.remove(+id);
-  }
 }

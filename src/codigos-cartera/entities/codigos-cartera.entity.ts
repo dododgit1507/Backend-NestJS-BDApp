@@ -1,3 +1,4 @@
+import { AsignacionCodigoIngeniero } from 'src/asignacion-codigo-ingeniero/entities/asignacion-codigo-ingeniero.entity';
 import { IngenieroProyecto } from 'src/ingeniero-proyecto/entities/ingeniero-proyecto.entity';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   Index,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -31,4 +33,8 @@ export class CodigosCartera {
     schema: 'public',
   })
   ingenieroProyectos: IngenieroProyecto[];
+
+  @OneToMany(() => AsignacionCodigoIngeniero, (asignacion) => asignacion.codigo)
+asignaciones: AsignacionCodigoIngeniero[];
+
 }

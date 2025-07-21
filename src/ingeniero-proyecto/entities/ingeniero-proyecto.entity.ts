@@ -1,4 +1,5 @@
 import { AsignacionClienteIngeniero } from 'src/asignacion-cliente-ingeniero/entities/asignacion-cliente-ingeniero.entity';
+import { AsignacionCodigoIngeniero } from 'src/asignacion-codigo-ingeniero/entities/asignacion-codigo-ingeniero.entity';
 import { Auditoria } from 'src/auditoria/entities/auditoria.entity';
 import { CodigosCartera } from 'src/codigos-cartera/entities/codigos-cartera.entity';
 import { Despacho } from 'src/despacho/entities/despacho.entity';
@@ -50,4 +51,8 @@ export class IngenieroProyecto {
     (proyeccionProducto) => proyeccionProducto.idIngeniero,
   )
   proyeccionProductos: ProyeccionProducto[];
+
+  @OneToMany(() => AsignacionCodigoIngeniero, (asignacion) => asignacion.ingeniero)
+asignaciones: AsignacionCodigoIngeniero[];
+
 }

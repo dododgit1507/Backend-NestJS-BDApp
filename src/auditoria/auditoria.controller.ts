@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { AuditoriaService } from './auditoria.service';
 import { CreateAuditoriaDto } from './dto/create-auditoria.dto';
 import { UpdateAuditoriaDto } from './dto/update-auditoria.dto';
@@ -27,8 +27,4 @@ export class AuditoriaController {
     return this.auditoriaService.update(+id, updateAuditoriaDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.auditoriaService.remove(+id);
-  }
 }

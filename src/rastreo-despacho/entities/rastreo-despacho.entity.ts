@@ -16,6 +16,10 @@ export class RastreoDespacho {
   @Column('timestamp without time zone', { name: 'fecha_hora', nullable: true })
   fechaHora: Date | null;
 
+  // Columna para la clave foránea
+  @Column('character', { name: 'id_asignacion_transporte', length: 5 })
+  idAsignacionTransporteFk: string;
+
   @ManyToOne(
     () => AsignacionTransporte,
     (asignacionTransporte) => asignacionTransporte.rastreoDespachos,

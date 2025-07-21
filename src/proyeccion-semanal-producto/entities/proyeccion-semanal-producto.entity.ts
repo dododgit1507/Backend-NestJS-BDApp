@@ -31,6 +31,10 @@ export class ProyeccionSemanalProducto {
   })
   metrosCuadrados: number | null;
 
+  // Columna para la clave foránea
+  @Column('integer', { name: 'id_proyeccion_producto' })
+  idProyeccionProductoFk: number;
+
   @ManyToOne(
     () => ProyeccionProducto,
     (proyeccionProducto) => proyeccionProducto.proyeccionSemanalProductos,

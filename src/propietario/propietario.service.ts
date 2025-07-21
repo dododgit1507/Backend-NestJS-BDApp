@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePropietarioDto } from './dto/create-propietario.dto';
 import { UpdatePropietarioDto } from './dto/update-propietario.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Propietario } from './entities/propietario.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PropietarioService {
-  create(createPropietarioDto: CreatePropietarioDto) {
-    return 'This action adds a new propietario';
+
+  constructor(@InjectRepository(Propietario) private propietarioRepository: Repository<Propietario>) {}
+
+  async create(createPropietarioDto: CreatePropietarioDto): Promise<Propietario> {
+    const propietario = this.propietarioRepository.create(createPropietarioDto);
+    return await this.propietarioRepository.save(propietario);
   }
 
-  findAll() {
-    return `This action returns all propietario`;
+  async findAll(): Promise<Propietario[]> {
+    return await this.propietarioRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} propietario`;
+  async findOne(id: string): Promise<Propietario | null> {
+    return await this.propietarioRepository.findOne({ where: { idPropietario: id } });
   }
 
-  update(id: number, updatePropietarioDto: UpdatePropietarioDto) {
-    return `This action updates a #${id} propietario`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} propietario`;
+  async update(id: string, updatePropietarioDto: UpdatePropietarioDto): Promise<Propietario | null> {
+    const propietario = await this.propietarioRepository.findOne({ where: { idPropietario: id } });
+    if (!propietario) {
+      return null;
+    }
+    Object.assign(propietario, updatePropietarioDto);
+    return await this.propietarioRepository.save(propietario);
   }
 }

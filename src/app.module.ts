@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -33,6 +31,7 @@ import { TransportesModule } from './transportes/transportes.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { UsuarioConductorModule } from './usuario-conductor/usuario-conductor.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -76,6 +75,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TransportesModule,
     UsuarioModule,
     UsuarioConductorModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

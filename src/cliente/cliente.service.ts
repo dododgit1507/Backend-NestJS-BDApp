@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Cliente } from './entities/cliente.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ClienteService {
-  create(createClienteDto: CreateClienteDto) {
-    return 'This action adds a new cliente';
+  constructor(
+    @InjectRepository(Cliente) private clienteRepository: Repository<Cliente>,
+  ) {}
+
+  async create(createClienteDto: CreateClienteDto): Promise<Cliente> {
+    const cliente = this.clienteRepository.create(createClienteDto);
+    return await this.clienteRepository.save(cliente);
   }
 
-  findAll() {
-    return `This action returns all cliente`;
+  async findAll(): Promise<Cliente[]> {
+    return await this.clienteRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cliente`;
+  async findOne(id: string): Promise<Cliente | null> {
+    return await this.clienteRepository.findOne({ where: { idCliente: id } });
   }
 
-  update(id: number, updateClienteDto: UpdateClienteDto) {
-    return `This action updates a #${id} cliente`;
+  async update(
+    id: string,
+    updateClienteDto: UpdateClienteDto,
+  ): Promise<Cliente> {
+    const cliente = await this.clienteRepository.findOne({
+      where: { idCliente: id },
+    });
+    if (!cliente) {
+      throw new Error('Cliente no encontrado');
+    }
+    Object.assign(cliente, updateClienteDto);
+    return await this.clienteRepository.save(cliente);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cliente`;
-  }
+  //TODO DELETE LOGICAL METHOD PENDING
 }
